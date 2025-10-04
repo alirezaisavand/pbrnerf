@@ -25,7 +25,7 @@ fi
 echo "Using scene: $SCENE"
 
 cd code
-python3 training/train.py \
+python training/train.py \
   ~/scratch/datasets/data_dtu/$SCENE \
   outputs \
   --name pbrnerf_dtu_$SCENE \

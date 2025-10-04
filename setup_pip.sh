@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Enforce the same constraints during setup
+: "${PIP_CONSTRAINT:=/tmp/constraints.txt}"
+if [ ! -f "$PIP_CONSTRAINT" ]; then
+  echo -e "numpy<2\nsetuptools<81\npybind11>=2.12" > "$PIP_CONSTRAINT"
+fi
+export PIP_CONSTRAINT
+
+# Toolchain + pin BEFORE any native builds
+$PY_BIN -m pip install -U "setuptools<81" "numpy<2" "pybind11>=2.12" wheel ninja cmake packaging
+
 echo "==> PBR-NeRF setup (Docker, CUDA 11.8, A100)"
 
 PY_BIN="${PY_BIN:-python3}"

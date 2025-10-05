@@ -26,9 +26,52 @@ sed -i "100i\set(pybind11_DIR /cluster/home/${USER}/ml-neilfpp/neilfpp_env/lib/p
 # comment out the below line in file: code/pyrt/common/gdt/gdt/gdt.h (line 137) 
 # using ::saturate; 
 sed -i '137s/^/\/\//' code/pyrt/common/gdt/gdt/gdt.h 
-mkdir -p code/pyrt/build 
-cd code/pyrt/build 
-cmake .. 
-make pyrt 
+# mkdir -p code/pyrt/build 
+# cd code/pyrt/build 
+# cmake .. 
+# make pyrt 
+
+###############
+# ---------- Build repo-local C++ ext (code/pyrt) ----------
+if [ -d "code/pyrt" ]; then
+  echo "==> Building code/pyrt ..."
+
+  # Map env var name to what CMake expects, and validate headers exist
+  if [ -z "${OptiX_INSTALL_DIR:-}" ] && [ -n "${OPTIX_INSTALL_DIR:-}" ]; then
+    export OptiX_INSTALL_DIR="${OPTIX_INSTALL_DIR}"
+  fi
+  if [ ! -f "${OptiX_INSTALL_DIR}/include/optix.h" ]; then
+    echo "ERROR: optix.h not found at \$OptiX_INSTALL_DIR/include"
+    echo "       Set OPTIX_INSTALL_DIR to your OptiX SDK root (the dir that contains include/optix.h)."
+    exit 1
+  fi
+
+  # Locate Torch_DIR and pybind11_DIR from the current Python env
+  Torch_DIR="$("$PY_BIN" - <<'PY'
+import torch, pathlib; print(pathlib.Path(torch.__file__).parent / "share/cmake/Torch")
+PY
+)"
+  pybind11_DIR="$("$PY_BIN" - <<'PY'
+import pybind11; print(pybind11.get_cmake_dir())
+PY
+)"
+
+  # Clean build dir to avoid stale cache that ignores new -D flags
+  rm -rf code/pyrt/build
+  cmake -S code/pyrt -B code/pyrt/build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+        -DTorch_DIR="$Torch_DIR" \
+        -Dpybind11_DIR="$pybind11_DIR" \
+        -DOptiX_INSTALL_DIR="$OptiX_INSTALL_DIR" \
+        -DOPTIX_INSTALL_DIR="$OptiX_INSTALL_DIR" \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
+  cmake --build code/pyrt/build -j "${MAX_JOBS:-4}"
+else
+  echo "==> No code/pyrt directory; skipping C++ build."
+fi
+
+###############
+
+
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cluster/home/${USER}/apps/optix/usr/lib/x86_64-linux-gnu/nvidia/tesla-470 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/cluster/home/${USER}/apps/optix/usr/lib/x86_64-linux-gnu

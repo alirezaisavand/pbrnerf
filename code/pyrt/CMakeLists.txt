@@ -4,7 +4,7 @@ endif (POLICY CMP0048)
 
 project(PyRT VERSION 0.1)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.5)
 if (NOT WIN32)
 # visual studio doesn't like these (not need them):
 # set (CMAKE_CXX_STANDARD 17)

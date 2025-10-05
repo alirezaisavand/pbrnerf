@@ -96,3 +96,6 @@ target_link_libraries(pyrt
   # ${CUDA_CUDA_LIBRARY}
   # ${CUDA_cublas_LIBRARY}
   )
+
+set(pybind11_DIR /cluster/home/${USER}/.local/lib/python3.11/site-packages/pybind11/share/cmake/pybind11) 
+find_package(pybind11 REQUIRED) 

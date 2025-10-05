@@ -53,21 +53,20 @@ export Torch_DIR pybind11_DIR
 echo "==> Torch_DIR=$Torch_DIR"
 echo "==> pybind11_DIR=$pybind11_DIR"
 
-# ---- tiny-cuda-nn (PyTorch bindings) for A100 ----
-echo "==> Installing tiny-cuda-nn (PyTorch bindings) for sm_80..."
-set +e
-"$PY_BIN" -m pip install -v --no-build-isolation \
-  "git+https://github.com/NVlabs/tiny-cuda-nn.git@v1.7#subdirectory=bindings/torch"
-TCNN_RC=$?
+# ---- tiny-cuda-nn (PyTorch bindings) for A100 (sm_80) ----
+echo "==> Installing tiny-cuda-nn (PyTorch bindings) from recursive clone..."
 set -e
-if [ $TCNN_RC -ne 0 ]; then
-  echo "!! git+pip failed; retry via tarball..."
-  TMP_TAR="$(mktemp -u /tmp/tcnn.XXXX).tar.gz"
-  curl -L https://codeload.github.com/NVlabs/tiny-cuda-nn/tar.gz/refs/heads/master -o "$TMP_TAR"
-  mkdir -p /tmp/tcnn && tar -xzf "$TMP_TAR" --strip-components=1 -C /tmp/tcnn
-  "$PY_BIN" -m pip install -v --no-build-isolation /tmp/tcnn/bindings/torch
-  rm -rf "$TMP_TAR" /tmp/tcnn
-fi
+TCNN_DIR="/opt/tcnn"
+rm -rf "$TCNN_DIR"
+git clone --recursive https://github.com/NVlabs/tiny-cuda-nn.git "$TCNN_DIR"
+( cd "$TCNN_DIR" && git checkout v1.6 || true && git submodule update --init --recursive )
+
+# Build with proper arches and pinned toolchain
+export TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-8.0}"
+export CMAKE_ARGS="${CMAKE_ARGS:-"-DTCNN_CUDA_ARCHITECTURES=80 -DCMAKE_CUDA_ARCHITECTURES=80"}"
+export MAX_JOBS="${MAX_JOBS:-4}"
+"$PY_BIN" -m pip install -v --no-build-isolation "$TCNN_DIR/bindings/torch"
+
 
 # smoke test (and verify numpy stayed <2)
 "$PY_BIN" - <<'PY'

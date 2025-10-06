@@ -76,6 +76,10 @@ cuda_compile_and_embed(embedded_ptx_code devicePrograms.cu)
 find_package(Torch REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
+find_package(pybind11 REQUIRED) 
+set(pybind11_DIR /workspace/pbrnerf/neilfpp_env/lib/python3.10/site-packages/pybind11/share/cmake/pybind11) 
+
+
 # message(STATUS "${TORCH_LIBRARIES}")
 pybind11_add_module(pyrt
   ${embedded_ptx_code}
@@ -96,5 +100,4 @@ target_link_libraries(pyrt
   # ${CUDA_cublas_LIBRARY}
   )
 
-set(pybind11_DIR /cluster/home/${USER}/.local/lib/python3.11/site-packages/pybind11/share/cmake/pybind11) 
-find_package(pybind11 REQUIRED) 
+

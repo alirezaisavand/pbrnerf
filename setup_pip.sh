@@ -15,7 +15,7 @@ pip3 install --no-input lpips opencv-python open3d tqdm imageio scikit-image sci
 pip3 install ninja git+https://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@github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch 
 export OptiX_INSTALL_DIR=/workspace/pbrnerf/NVIDIA-OptiX-SDK-7.3.0-linux64-x86_64 
 # export OptiX_INSTALL_DIR=/cluster/home/${USER}/apps/optix/NVIDIA-OptiX-SDK-7.6.0-linux64-x86_64 
-export Torch_DIR=/cluster/software/stacks/2024-06/spack/opt/spack/linux-ubuntu22.04-x86_64_v3/gcc-12.2.0/python-3.11.6-ukhwpjnwzzzizek3pgr75zkbhxros5fq/lib/python3.11/site-packages/torch/share/cmake/Torch 
+export Torch_DIR=/usr/local/lib/python3.10/dist-packages/torch
 export OPENCV_IO_ENABLE_OPENEXR=True 
 # Add the following lines in /cluster/home/${USER}/ml-neilfpp/code/pyrt/CMakeLists.txt file 
 # set(pybind11_DIR /cluster/home/${USER}/.local/lib/python3.11/site-packages/pybind11/share/cmake/pybind11) 

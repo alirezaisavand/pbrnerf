@@ -5,8 +5,8 @@ GPU="4090"
 sh NVIDIA-OptiX-SDK-7.3.0-linux64-x86_64.sh --include-subdir --skip-license 
 # sh NVIDIA-OptiX-SDK-7.6.0-linux64-x86_64-31894579.sh --include-subdir --skip-license 
 module load eth_proxy cmake/3.27.7 cudnn/8.9.7.29-12 
-# python -m venv --system-site-packages neilfpp_env 
-# source neilfpp_env/bin/activate 
+python -m venv --system-site-packages neilfpp_env 
+source neilfpp_env/bin/activate 
 # export TCNN_CUDA_ARCHITECTURES=75 
 export TCNN_CUDA_ARCHITECTURES=80 
 pip3 install --upgrade pip 

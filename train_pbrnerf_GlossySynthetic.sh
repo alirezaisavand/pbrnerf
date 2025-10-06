@@ -32,5 +32,5 @@ python3 training/train.py \
   --tags $TAGS \
   --override_cons_weighting $CONS_LOSS \
   --override_spec_weighting $SPEC_LOSS \
-  --config_path configs/config_dtu_pbrnerf.json
+  --config_path configs/config_GlossySynthetic_pbrnerf.json
 

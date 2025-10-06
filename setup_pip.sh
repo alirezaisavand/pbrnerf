@@ -20,12 +20,12 @@ export OPENCV_IO_ENABLE_OPENEXR=True
 # Add the following lines in /cluster/home/${USER}/ml-neilfpp/code/pyrt/CMakeLists.txt file 
 # set(pybind11_DIR /cluster/home/${USER}/.local/lib/python3.11/site-packages/pybind11/share/cmake/pybind11) 
 # find_package(pybind11 REQUIRED) 
-sed -i '100s/^/#/' code/pyrt/CMakeLists.txt 
-echo "find_package(pybind11 REQUIRED)" >> code/pyrt/CMakeLists.txt 
-sed -i "100i\set(pybind11_DIR /cluster/home/${USER}/ml-neilfpp/neilfpp_env/lib/python3.11/site-packages/pybind11/share/cmake/pybind11)" code/pyrt/CMakeLists.txt 
+# sed -i '100s/^/#/' code/pyrt/CMakeLists.txt 
+# echo "find_package(pybind11 REQUIRED)" >> code/pyrt/CMakeLists.txt 
+# sed -i "100i\set(pybind11_DIR /cluster/home/${USER}/ml-neilfpp/neilfpp_env/lib/python3.11/site-packages/pybind11/share/cmake/pybind11)" code/pyrt/CMakeLists.txt 
 # comment out the below line in file: code/pyrt/common/gdt/gdt/gdt.h (line 137) 
 # using ::saturate; 
-sed -i '137s/^/\/\//' code/pyrt/common/gdt/gdt/gdt.h 
+# sed -i '137s/^/\/\//' code/pyrt/common/gdt/gdt/gdt.h 
 
 mkdir -p code/pyrt/build 
 cd code/pyrt/build 

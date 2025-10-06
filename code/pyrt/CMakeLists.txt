@@ -98,7 +98,7 @@ target_link_libraries(pyrt PRIVATE
   gdt
   ${optix_LIBRARY}
   ${TORCH_LIBRARIES}
-  $ENV{Torch_DIR}/../../../lib/libtorch_python.so
+  $ENV{Torch_DIR}/lib/libtorch_python.so
   ${CUDA_LIBRARIES}
   # ${CUDA_CUDA_LIBRARY}
   # ${CUDA_cublas_LIBRARY}

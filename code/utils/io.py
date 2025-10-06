@@ -108,16 +108,16 @@ def load_cams_from_sfmscene(path):
     camera_info_list = sfm_scene['camera_track_map']['images']
     for i, (index, camera_info) in enumerate(camera_info_list.items()):
         # flg == 2 stands for valid camera 
-        # if camera_info['flg'] == 2:
-        intrinsic = np.zeros((4, 4))
-        intrinsic[0, 0] = camera_info['camera']['intrinsic']['focal'][0]
-        intrinsic[1, 1] = camera_info['camera']['intrinsic']['focal'][1]
-        intrinsic[0, 2] = camera_info['camera']['intrinsic']['ppt'][0]
-        intrinsic[1, 2] = camera_info['camera']['intrinsic']['ppt'][1]
-        intrinsic[2, 2] = intrinsic[3, 3] = 1
-        extrinsic = np.array(camera_info['camera']['extrinsic']).reshape(4, 4)
-        intrinsics[index] = intrinsic
-        extrinsics[index] = extrinsic
+        if camera_info['flg'] == 2:
+            intrinsic = np.zeros((4, 4))
+            intrinsic[0, 0] = camera_info['camera']['intrinsic']['focal'][0]
+            intrinsic[1, 1] = camera_info['camera']['intrinsic']['focal'][1]
+            intrinsic[0, 2] = camera_info['camera']['intrinsic']['ppt'][0]
+            intrinsic[1, 2] = camera_info['camera']['intrinsic']['ppt'][1]
+            intrinsic[2, 2] = intrinsic[3, 3] = 1
+            extrinsic = np.array(camera_info['camera']['extrinsic']).reshape(4, 4)
+            intrinsics[index] = intrinsic
+            extrinsics[index] = extrinsic
 
     # load bbox transform
     bbox_transform = np.array(sfm_scene['bbox']['transform']).reshape(4, 4)

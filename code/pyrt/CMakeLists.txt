@@ -94,7 +94,7 @@ pybind11_add_module(pyrt
   SampleRenderer.cpp
   pyrt.cpp
   )
-target_link_libraries(pyrt
+target_link_libraries(pyrt PRIVATE
   gdt
   ${optix_LIBRARY}
   ${TORCH_LIBRARIES}

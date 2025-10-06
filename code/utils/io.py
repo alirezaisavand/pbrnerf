@@ -56,7 +56,7 @@ def load_rgb_image_with_prefix(prefix):
         path = prefix + ext
         if os.path.exists(path):
             return load_rgb_image(path)
-        print("path does not exist:", path)
+        print("path does not exist:", repr(path))
     print ('Does not exists any image file with prefix: ' + prefix)
     return None
 

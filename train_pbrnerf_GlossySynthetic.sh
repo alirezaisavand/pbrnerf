@@ -26,7 +26,7 @@ echo "Using scene: $SCENE"
 
 cd code
 python3 training/train.py \
-  /root/scratch/datasets/GlossySynthetic/$SCENE \
+  /workspace/datasets/GlossySynthetic/$SCENE \
   outputs \
   --name pbrnerf_GlossySynthetic_$SCENE \
   --tags $TAGS \

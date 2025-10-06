@@ -7,28 +7,19 @@
         "brdf_network": {
             "in_dims": 3,
             "out_dims": 5,
-            "dims": [
-                64,
-                64
-            ],
+            "dims": [64, 64],
             "skip_connection": [],
             "weight_norm": true,
             "embed_config": [
-                {
-                    "otype": "Identity"
-                },
-                {
-                    "otype": "HashGrid",
+                {"otype": "Identity"},
+                {"otype": "HashGrid",
                     "n_levels": 16,
                     "n_features_per_level": 2,
                     "log2_hashmap_size": 19,
                     "base_resolution": 16,
                     "max_resolution": 4096,
                     "interpolation": "Linear",
-                    "input_range": [
-                        -3,
-                        3
-                    ],
+                    "input_range": [-3, 3],
                     "init_range": 1e-4
                 }
             ],
@@ -37,41 +28,17 @@
         "neilf_network": {
             "in_dims": 6,
             "out_dims": 1,
-            "dims": [
-                128,
-                128,
-                128,
-                128,
-                128,
-                128,
-                128,
-                128
-            ],
-            "dir_insert": [
-                0,
-                4
-            ],
-            "pos_insert": [
-                4
-            ],
+            "dims": [128, 128, 128, 128, 128, 128, 128, 128],
+            "dir_insert": [0, 4],
+            "pos_insert": [4],
             "embed_config_view": [
-                {
-                    "otype": "Identity"
-                },
-                {
-                    "otype": "SphericalHarmonics",
+                {"otype": "Identity"},
+                {"otype": "SphericalHarmonics",
                     "n_frequencies": 6,
-                    "input_range": [
-                        -1,
-                        1
-                    ]
+                    "input_range": [-1, 1]
                 }
             ],
-            "embed_config": [
-                {
-                    "otype": "Identity"
-                }
-            ],
+            "embed_config": [{"otype": "Identity"}],
             "use_siren": false,
             "weight_norm": true,
             "init_output": -1.0,
@@ -82,15 +49,9 @@
             "cutoff_bounding_sphere": 2.0,
             "object_bounding_sphere": 1.0,
             "implicit_network": {
-                "dims": [
-                    64,
-                    64
-                ],
+                "dims": [ 64, 64 ],
                 "aux_dims": [
-                    [
-                        "pred_grad",
-                        3
-                    ]
+                    ["pred_grad", 3]
                 ],
                 "geometric_init": true,
                 "bias": 0.6,
@@ -99,21 +60,15 @@
                 "hess_type": "numeric",
                 "sphere_scale": 20.0,
                 "embed_config": [
-                    {
-                        "otype": "Identity"
-                    },
-                    {
-                        "otype": "HashGrid",
+                    {"otype": "Identity"},
+                    {"otype": "HashGrid",
                         "n_levels": 16,
                         "n_features_per_level": 2,
                         "log2_hashmap_size": 19,
                         "base_resolution": 16,
                         "max_resolution": 4096,
                         "interpolation": "Linear",
-                        "input_range": [
-                            -3,
-                            3
-                        ],
+                        "input_range": [-3, 3],
                         "init_range": 1e-4
                     }
                 ]
@@ -121,24 +76,13 @@
             "rendering_network": {
                 "mode": "idr",
                 "d_out": 3,
-                "dims": [
-                    64,
-                    64,
-                    64,
-                    64
-                ],
+                "dims": [ 64, 64, 64, 64],
                 "weight_norm": true,
                 "embed_config_view": [
-                    {
-                        "otype": "Identity"
-                    },
-                    {
-                        "otype": "SphericalHarmonics",
+                    {"otype": "Identity"},
+                    {"otype": "SphericalHarmonics",
                         "n_frequencies": 4,
-                        "input_range": [
-                            -1,
-                            1
-                        ]
+                        "input_range": [-1, 1]
                     }
                 ],
                 "fused": false,
@@ -159,9 +103,7 @@
                 "beta_iters": 10,
                 "max_total_iters": 5
             },
-            "background": {
-                "otype": "none"
-            }
+            "background": {"otype": "none"}
         }
     },
     "dataset": {
@@ -188,10 +130,7 @@
         "num_pixel_samples": 4096,
         "num_reg_samples": 8192,
         "training_iterations": 30000,
-        "mat2geo_grad_scale": [
-            0.0,
-            0.1
-        ],
+        "mat2geo_grad_scale": [0.0, 0.1],
         "lr": 0.001,
         "lr_scaler": 0.01,
         "lr_warmup_start_factor": 0.1,
@@ -235,9 +174,7 @@
                 "training_iterations": 5000,
                 "mat2geo_grad_scale": 1.0,
                 "lr": 0.01,
-                "lr_decay_iters": [
-                    2500
-                ],
+                "lr_decay_iters": [2500],
                 "geo_loss": {
                     "hessian_weight": 0.001,
                     "minsurf_weight": 0.01,
@@ -248,11 +185,10 @@
                 "training_iterations": 5000,
                 "mat2geo_grad_scale": 0.0,
                 "lr": 0.01,
-                "lr_decay_iters": [
-                    2500
-                ]
+                "lr_decay_iters": [2500]
             },
-            "joint": {}
+            "joint": {
+            }
         }
     },
     "eval": {

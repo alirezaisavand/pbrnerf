@@ -25,7 +25,7 @@ fi
 echo "Using scene: $SCENE"
 
 cd code
-python3 training/train.py \
+OPENCV_IO_ENABLE_OPENEXR=1 python3 training/train.py \
   /workspace/datasets/GlossySynthetic/$SCENE \
   outputs \
   --name pbrnerf_GlossySynthetic_$SCENE \

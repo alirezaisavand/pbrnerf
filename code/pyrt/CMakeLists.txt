@@ -73,7 +73,6 @@ cuda_compile_and_embed(embedded_ptx_code devicePrograms.cu)
 #   ${CUDA_CUDA_LIBRARY}
 #   )
 
-find_package(pybind11 REQUIRED)
 find_package(Torch REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 

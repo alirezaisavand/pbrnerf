@@ -73,12 +73,16 @@ cuda_compile_and_embed(embedded_ptx_code devicePrograms.cu)
 #   ${CUDA_CUDA_LIBRARY}
 #   )
 
-find_package(Torch REQUIRED)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 
 set(pybind11_DIR /workspace/pbrnerf/neilfpp_env/lib/python3.10/site-packages/pybind11/share/cmake/pybind11) 
 find_package(pybind11 REQUIRED) 
+
+find_package(Torch REQUIRED)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+
+
 
 # message(STATUS "${TORCH_LIBRARIES}")
 pybind11_add_module(pyrt
@@ -90,22 +94,15 @@ pybind11_add_module(pyrt
   SampleRenderer.cpp
   pyrt.cpp
   )
-#target_link_libraries(pyrt
-#  gdt
-#  ${optix_LIBRARY}
-#  ${TORCH_LIBRARIES}
-#  $ENV{Torch_DIR}/../../../lib/libtorch_python.so
-#  ${CUDA_LIBRARIES}
-#  # ${CUDA_CUDA_LIBRARY}
-#  # ${CUDA_cublas_LIBRARY}
-#  )
-
 target_link_libraries(pyrt
-  PRIVATE
-    gdt
-    ${optix_LIBRARY}
-    Torch::Torch              # or ${TORCH_LIBRARIES} if you prefer
-    CUDA::cudart              # or ${CUDA_LIBRARIES} if not using CUDAToolkit
-)
+  gdt
+  ${optix_LIBRARY}
+  ${TORCH_LIBRARIES}
+  $ENV{Torch_DIR}/../../../lib/libtorch_python.so
+  ${CUDA_LIBRARIES}
+  # ${CUDA_CUDA_LIBRARY}
+  # ${CUDA_cublas_LIBRARY}
+  )
+
 
 

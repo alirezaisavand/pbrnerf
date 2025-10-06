@@ -100,4 +100,12 @@ target_link_libraries(pyrt
   # ${CUDA_cublas_LIBRARY}
   )
 
+target_link_libraries(pyrt
+  PRIVATE
+    gdt
+    ${optix_LIBRARY}
+    Torch::Torch              # or ${TORCH_LIBRARIES} if you prefer
+    CUDA::cudart              # or ${CUDA_LIBRARIES} if not using CUDAToolkit
+)
+
 

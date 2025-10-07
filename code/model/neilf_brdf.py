@@ -173,7 +173,7 @@ class NeILFPBR(nn.Module):
 
         # sample incident rays for the input point
         incident_dirs, incident_areas = self.sample_incident_rays(normals.detach())                  # [N, S, 3], [N, S, 1]
-        print('in NeILFPBR:forward(): 1. ray_dirs:', ray_dirs.shape)
+        print('in NeILFPBR:forward(): 1. ray_dirs:', incident_dirs.shape)
         # sample incident lights for the input point
         incident_lights, pre_activation_output_Li = self.sample_incident_lights(points, incident_dirs)                # [N, S, 3]
 
@@ -246,6 +246,8 @@ class NeILFModel(nn.Module):
 
         # neilf rendering
         if self.phase in ['mat', 'joint']:
+            print('in neilfModel: forward(): 1. normals[render_masks].shape:', normals[render_masks].shape)
+            print('in neilfModel: forward(): 2. normals.shape:', normals.shape)
             (
                 rgb,
                 base_color,

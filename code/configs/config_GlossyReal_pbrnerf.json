@@ -160,7 +160,7 @@
                 "max_total_iters": 5
             },
             "background": {
-                "otype": "none"
+                "otype": "nerfpp"
             }
         }
     },

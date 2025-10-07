@@ -173,7 +173,7 @@ class NeILFPBR(nn.Module):
 
         # sample incident rays for the input point
         incident_dirs, incident_areas = self.sample_incident_rays(normals.detach())                  # [N, S, 3], [N, S, 1]
-
+        print('in NeILFPBR:forward(): 1. ray_dirs:', ray_dirs.shape)
         # sample incident lights for the input point
         incident_lights, pre_activation_output_Li = self.sample_incident_lights(points, incident_dirs)                # [N, S, 3]
 

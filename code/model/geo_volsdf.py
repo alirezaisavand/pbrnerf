@@ -416,7 +416,7 @@ class Geometry(nn.Module):
         uv = input["uv"].reshape([-1, 2])                                               # [N, 2]
 
         ray_dirs, cam_loc = geometry.get_camera_params(uv, pose, intrinsics)                           # [N, 3]
-
+        print('in Geometry:forward(): 1. ray_dirs shape:', ray_dirs.shape)
         num_pixels, _ = ray_dirs.shape
 
         z_vals, z_samples_eik = self.ray_sampler.get_z_vals(ray_dirs, cam_loc, 
@@ -538,7 +538,7 @@ class Geometry(nn.Module):
     
     def trace_and_render(self, points, normals, ray_dirs, sample=None, validate_normal=False):
         N, S, _ = ray_dirs.shape
-
+        print('in trance_and_render(): 1. ray_dirs shape:', ray_dirs.shape)
         # sample
         trace_total_num = N * S
         trace_sample_num = points.shape[0] // sample if sample is not None else 1e9
@@ -551,6 +551,7 @@ class Geometry(nn.Module):
         trace_sample = temp
 
         ray_dirs = ray_dirs.reshape(trace_total_num, 3)[trace_sample]
+        print('in trance_and_render(): 2. ray_dirs shape:', ray_dirs.shape)
         points = points.unsqueeze(1).repeat(1,S,1).reshape(trace_total_num, 3)[trace_sample]
         normals = normals.unsqueeze(1).repeat(1,S,1).reshape(trace_total_num, 3)[trace_sample]
 

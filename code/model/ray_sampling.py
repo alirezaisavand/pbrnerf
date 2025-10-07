@@ -12,6 +12,7 @@ EPS = 1e-7
 def fibonacci_sphere_sampling(normals, sample_num, random_rotate=True):
 
     N = normals.shape[0]
+    print('in fibonacci_sphere_sampling(): 1. normals shape:', normals.shape)
     delta = np.pi * (3.0 - np.sqrt(5.0))
 
     # fibonacci sphere sample around z axis 
@@ -157,8 +158,9 @@ class ErrorBoundSampler(nn.Module):
         # add some of the near surface points
         idx = torch.randint(z_vals.shape[-1], (z_vals.shape[0],)).cuda()
         z_samples_eik = torch.gather(z_vals, 1, idx.unsqueeze(-1))
-
+        print('in get_z_vals(): 1. ray_dirs:', ray_dirs.shape)
         if self.inverse_sphere_bg:
+            
             z_vals_inverse_sphere = self.inverse_sphere_sampler.get_z_vals(ray_dirs, cam_loc, density_func, im_func, take_sphere_intersection=False)
             z_vals_inverse_sphere = z_vals_inverse_sphere * (1./self.scene_bounding_sphere)
             z_vals = (z_vals, z_vals_inverse_sphere)

@@ -26,7 +26,7 @@ echo "Using scene: $SCENE"
 
 cd code
 OPENCV_IO_ENABLE_OPENEXR=1 python3 training/train.py \
-  /workspace/datasets/nerfsynthetic/$SCENE \
+  /workspace/datasets/nerf_synthetic/$SCENE \
   outputs \
   --name pbrnerf_nerfsynthetic_$SCENE \
   --tags $TAGS \

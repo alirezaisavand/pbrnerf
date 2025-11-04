@@ -93,7 +93,14 @@ class NeILFDataset(torch.utils.data.Dataset):
 
         # split training/validataion sets
         self.num_images = len(self.image_indexes)
-        validation_list_indexes = [v % self.num_images for v in validation_indexes]
+        import random
+        val_inds = [i for i in range(self.num_images)]
+        random.seed(6033)
+        num_nvs_imgs = 5
+        random.shuffle(val_inds)
+        validation_list_indexes = val_inds[:num_nvs_imgs]
+        # validation_list_indexes = [v % self.num_images for v in validation_indexes]
+
         self.validation_indexes = []
         self.training_indexes = []
         for i in range(self.num_images):
@@ -102,6 +109,7 @@ class NeILFDataset(torch.utils.data.Dataset):
                 self.validation_indexes.append(image_index)
             else:
                 self.training_indexes.append(image_index)
+        print(f'validation indexes: {self.validation_indexes}')
         self.num_validation_images = len(self.validation_indexes)
         self.num_training_images = len(self.training_indexes)
 

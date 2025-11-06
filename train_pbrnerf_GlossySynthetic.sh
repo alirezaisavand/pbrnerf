@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Set the default scene
-SCENE="tbell"
+SCENE="teapot"
 TAGS="debug"
 CONS_LOSS=0.0
 SPEC_LOSS=0.0

@@ -68,7 +68,8 @@ class NeILFDataset(torch.utils.data.Dataset):
         self.intrinsics, self.extrinsics, self.scale_mat, self.image_list, self.image_indexes, self.image_resolution = \
             io.load_cams_from_sfmscene(f'{self.data_folder}/inputs/sfm_scene.json')
         self.total_pixels = self.image_resolution[0] * self.image_resolution[1]
-
+        print(self.image_list)
+        print(self.image_indexes)
         # adjust scale mat
         def get_scaled_cams(ext, scale_mat):
             cam_centers = np.stack([(- v[:3,:3].T @ v[:3, 3:])[:,0] for v in ext.values()], axis=0)

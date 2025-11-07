@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Set the default scene
-SCENE="angel"
+SCENE="bell"
 TAGS="debug"
 CONS_LOSS=0.0
 SPEC_LOSS=0.0

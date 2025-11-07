@@ -107,6 +107,7 @@ class NeILFDataset(torch.utils.data.Dataset):
             image_index = self.image_indexes[i]
             if i in validation_list_indexes:
                 self.validation_indexes.append(image_index)
+                print('image index for val:', image_index, self.image_list[image_index], self.image_list[i])
             else:
                 self.training_indexes.append(image_index)
         print(f'validation indexes: {self.validation_indexes}')
